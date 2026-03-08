@@ -24,8 +24,9 @@ model Company {
 model User {
   id         String          @id @db.Uuid
   companyId  String          @map("company_id") @db.Uuid
+  email      String          @unique
   role       String
-  email      String?
+  password   String?
   createdAt  DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt  DateTime        @default(now()) @map("updated_at") @db.Timestamptz(6)
   company    Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)

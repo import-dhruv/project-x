@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import Sidebar from "@/components/layout/Sidebar";
 import Header from "@/components/layout/Header";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { Providers } from "@/components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,21 +31,23 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ProtectedRoute>
-          {isLoginPage ? (
-            children
-          ) : (
-            <div className="flex min-h-screen">
-              <Sidebar />
-              <div className="flex-1 flex flex-col lg:ml-[240px]">
-                <Header />
-                <main className="flex-1 p-4 lg:p-6 pb-20 lg:pb-6">
-                  {children}
-                </main>
+        <Providers>
+          <ProtectedRoute>
+            {isLoginPage ? (
+              children
+            ) : (
+              <div className="flex min-h-screen">
+                <Sidebar />
+                <div className="flex-1 flex flex-col lg:ml-[240px]">
+                  <Header />
+                  <main className="flex-1 p-4 lg:p-6 pb-20 lg:pb-6">
+                    {children}
+                  </main>
+                </div>
               </div>
-            </div>
-          )}
-        </ProtectedRoute>
+            )}
+          </ProtectedRoute>
+        </Providers>
       </body>
     </html>
   );
